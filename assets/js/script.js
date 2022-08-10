@@ -1,3 +1,8 @@
+// <!-- //jQuery Date Picker -->
+$(function() {
+  $("#datepicker").datepicker();
+});
+
 var timerEl = $("#timerEl")
 var todaysDate = ""
 
