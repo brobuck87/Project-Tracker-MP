@@ -17,11 +17,7 @@ function handleFormSubmit(event) {
   var selectedDate = moment($("#date-picker").val(), "MM/DD/YYYY");
   var untilDue = selectedDate.diff(current, 'days')
   var estimatedEarnings = untilDue * ($('#hourly-wage').val() * 8);
-  var deleteButton = $('<button>');
-  deleteButton.attr('type', 'button') 
-  deleteButton.attr('class', 'btn btn-danger delete') 
-  deleteButton.text('Delete Project')
-  var tableInfo = [$("#project-name").val(), $("#project-selector").val(), $("#hourly-wage").val(), $("#date-picker").val(), untilDue, estimatedEarnings, deleteButton];
+  var tableInfo = [$("#project-name").val(), $("#project-selector").val(), $("#hourly-wage").val(), $("#date-picker").val(), untilDue, estimatedEarnings];
   var tableRow = $('<tr>')
   
   for (let i = 0; i <= tableInfo.length; i++){
@@ -34,6 +30,11 @@ function handleFormSubmit(event) {
      //put in tr
      tableRow.append(tableData);
      };
+     var deleteButton = $('<button>');
+     deleteButton.attr('type', 'button') 
+     deleteButton.attr('class', 'btn btn-danger delete') 
+     deleteButton.text('Delete Project')
+     tableRow.append(deleteButton)
   $('#project-info tbody').on('click', '.delete',function(){
     $(this).closest('tr').remove();
   })
