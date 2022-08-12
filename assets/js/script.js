@@ -17,7 +17,11 @@ function handleFormSubmit(event) {
   var selectedDate = moment($("#date-picker").val(), "MM/DD/YYYY");
   var untilDue = selectedDate.diff(current, 'days')
   var estimatedEarnings = untilDue * ($('#hourly-wage').val() * 8);
-  var tableInfo = [$("#project-name").val(), $("#project-selector").val(), $("#hourly-wage").val(), $("#date-picker").val(), untilDue, estimatedEarnings];
+  var deleteButton = $('<button>');
+  deleteButton.attr('type', 'button') 
+  deleteButton.attr('class', 'btn btn-danger delete') 
+  deleteButton.text('Delete Project')
+  var tableInfo = [$("#project-name").val(), $("#project-selector").val(), $("#hourly-wage").val(), $("#date-picker").val(), untilDue, estimatedEarnings, deleteButton];
   var tableRow = $('<tr>')
   
   for (let i = 0; i <= tableInfo.length; i++){
@@ -30,11 +34,15 @@ function handleFormSubmit(event) {
      //put in tr
      tableRow.append(tableData);
      };
-  
+  $('#project-info tbody').on('click', '.delete',function(){
+    $(this).closest('tr').remove();
+  })
   $('#project-info tbody').append(tableRow);
   projectForm.trigger('reset');
   $('#formModal').modal('hide');
 }
+
+
 
 window.addEventListener('load', (event) => {
   refreshDate()
