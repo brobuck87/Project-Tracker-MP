@@ -20,7 +20,7 @@ function handleFormSubmit(event) {
   var tableInfo = [$("#project-name").val(), $("#project-selector").val(), $("#hourly-wage").val(), $("#date-picker").val(), untilDue, estimatedEarnings];
   var tableRow = $('<tr>')
   
-  for (let i = 0; i <= tableInfo.length; i++){
+  for (let i = 0; i < tableInfo.length; i++){
      //create td
      var tableData = $('<td>')
 
@@ -30,11 +30,12 @@ function handleFormSubmit(event) {
      //put in tr
      tableRow.append(tableData);
      };
+     var buttonTD = $('<td>')
      var deleteButton = $('<button>');
      deleteButton.attr('type', 'button') 
-     deleteButton.attr('class', 'btn btn-danger delete') 
-     deleteButton.text('Delete Project')
-     tableRow.append(deleteButton)
+     deleteButton.attr('class', 'btn btn-danger delete fa fa-trash') 
+     buttonTD.append(deleteButton)
+     tableRow.append(buttonTD)
   $('#project-info tbody').on('click', '.delete',function(){
     $(this).closest('tr').remove();
   })
