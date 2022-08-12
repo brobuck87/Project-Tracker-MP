@@ -1,11 +1,8 @@
 var projectForm = $("#project-form")
 
-var timerEl = $("#timerEl")
-var todaysDate = ""
-
-
 function refreshDate() {
-  todaysDate = moment().format("dddd, MMMM Do YYYY, h:mm:ss a");
+  var todaysDate = moment().format("dddd, MMMM Do YYYY, h:mm:ss a");
+  var timerEl = $("#timerEl")
   timerEl.text(todaysDate)
 };
 
@@ -15,18 +12,26 @@ function refreshTimer() {
 
 function handleFormSubmit(event) {
   event.preventDefault();
-  console.log('Project Name');
-  var projectName = $("#project-name")
-  var projectType = $("#project-selector")
-  var hourlyWage = $("#hourly-wage")
-  var dueDate = $("#date-picker")
+  //calculate difference between and date-picker.val
+  var current = moment();
+  var selectedDate = moment($("#date-picker").val(), "MM/DD/YYYY");
+  var untilDue = selectedDate.diff(current, 'days')
+  var estimatedEarnings = untilDue * ($('#hourly-wage').val() * 8);
+  var tableInfo = [$("#project-name").val(), $("#project-selector").val(), $("#hourly-wage").val(), $("#date-picker").val(), untilDue, estimatedEarnings];
+  var tableRow = $('<tr>')
+  
+  for (let i = 0; i <= tableInfo.length; i++){
+     //create td
+     var tableData = $('<td>')
 
-  console.log(projectName.val())
-  console.log(projectType.val())
-  console.log(hourlyWage.val())
-  console.log(dueDate.val())
+     //set text to be current value
+     tableData.text(tableInfo[i]);
 
-  $('#myTable tr:last').after('<tr>...</tr><tr>...</tr>');
+     //put in tr
+     tableRow.append(tableData);
+     };
+  
+  $('#project-info tbody').append(tableRow);
 }
 
 window.addEventListener('load', (event) => {
