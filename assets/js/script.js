@@ -32,6 +32,8 @@ function handleFormSubmit(event) {
      };
   
   $('#project-info tbody').append(tableRow);
+  projectForm.trigger('reset');
+  $('#formModal').modal('hide');
 }
 
 window.addEventListener('load', (event) => {
